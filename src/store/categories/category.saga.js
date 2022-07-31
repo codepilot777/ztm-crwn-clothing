@@ -18,5 +18,5 @@ export function* onFetchCategories() {
 }
 
 export function* categoriesSaga() {
-  yield all([onFetchCategories])
+  yield all([call(onFetchCategories)])
 }
