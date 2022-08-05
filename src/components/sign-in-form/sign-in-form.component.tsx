@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, FormEvent, ChangeEvent } from 'react';
 import { useDispatch } from 'react-redux';
 
 import FormInput from '../form-input/form-input.component';
 import Button, { BUTTON_TYPE_CLASSES } from '../button/button.component';
 
-import { SignInContainer, ButtonsContainer } from './sign-in-form.styles.jsx'
+import { SignInContainer, ButtonsContainer } from './sign-in-form.styles'
 import { emailSignInStart, googleSignInStart } from '../../store/user/user.action';
+
 const defaultFormFields = {
   email:'',
   password:'',
@@ -20,23 +21,13 @@ const SignInForm = () => {
     setFormFields(defaultFormFields);
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       dispatch(emailSignInStart(email,password))
       resetFormFields();
     } catch (err) {
-      switch (err.code) {
-        case 'auth/wrong-password':
-          alert('incorrect password for email');
-          break
-
-        case 'auth/user-not-found':
-          alert('no user found with this email');
-          break
-        default:
           console.log(err)
-      }
     }
   }
 
@@ -44,8 +35,7 @@ const SignInForm = () => {
     dispatch(googleSignInStart())
 
   }
-  const handleChange =(e) => {
-
+  const handleChange =(e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormFields({...formFields, [name]: value})
   }

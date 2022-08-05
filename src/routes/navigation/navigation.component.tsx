@@ -6,7 +6,7 @@ import { selectCurrentUser } from "../../store/user/user.selector";
 import { selectShowDropdown } from '../../store/cart/cart.selector';
 
 import { ReactComponent as CrwnLogo } from '../../assets/crown.svg'
-import { NavigationContainer, NavLinks, NavLink, LogoContainer } from './navigation.styles.jsx';
+import { NavigationContainer, NavLinks, NavLink, LogoContainer } from './navigation.styles';
 import CartIcon from "../../components/cart-icon/cart-icon.component";
 import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component";
 import { signOutStart } from "../../store/user/user.action";

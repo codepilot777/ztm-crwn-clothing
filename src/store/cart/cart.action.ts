@@ -46,7 +46,7 @@ export const setShowDropdown = withMatcher((bool: boolean): SetShowDropdown => (
     createAction(CART_ACTION_TYPES.SET_CART_ITEMS, cartItems)
     ))
 
-export const addItemToCart = (cartItems: CartItem[], productToAdd: CartItem) => {
+export const addItemToCart = (cartItems: CartItem[], productToAdd: CategoryItem) => {
   const newCartItems = addCartItem(cartItems, productToAdd);
   return setCartItems(newCartItems)
 }

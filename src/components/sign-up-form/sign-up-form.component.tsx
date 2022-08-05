@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, FormEvent, ChangeEvent  } from 'react';
 import { useDispatch } from 'react-redux';
+import { AuthError, AuthErrorCodes } from 'firebase/auth';
 
 import FormInput from '../form-input/form-input.component';
 import Button from '../button/button.component';
-import { SignUpContainer } from './sign-up-form.styes.jsx';
+import { SignUpContainer } from './sign-up-form.styes';
 
 import { signUpStart } from '../../store/user/user.action';
 
@@ -24,17 +25,17 @@ const SignUpForm = () => {
     setFormFields(defaultFormFields);
   }
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name , value } = e.target;
     setFormFields({
       ...formFields, [name]: value
     })
   }
 
-  const handleSumbit = async (e) => {
+  const handleSumbit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!password === confirmPassword) {
+    if (password !== confirmPassword) {
       alert('passwords do not match');
       return ;
     }
@@ -43,7 +44,7 @@ const SignUpForm = () => {
       dispatch(signUpStart(email, password, displayName))
       resetFormFields();
     } catch (err) {
-      if (err.code === 'auth/email-already-in-use'){
+      if ((err as AuthError).code === AuthErrorCodes.EMAIL_EXISTS){
         alert('email already in use');
       } else {
         console.log(err)
